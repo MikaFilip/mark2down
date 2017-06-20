@@ -7,11 +7,11 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class PythonOrgSearch(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.PhantomJS()  # executable_path='node_modules/phantomjs/lib/phantom/bin/phantomjs')
-        # self.driver = webdriver.Firefox()
+        #self.driver = webdriver.PhantomJS()  # executable_path='node_modules/phantomjs/lib/phantom/bin/phantomjs')
+        self.driver = webdriver.Firefox()
         self.driver.set_window_size(1024, 768)
-        # self.driver.get("http://localhost:8080")
-        self.driver.get('https://mark2down.herokuapp.com/')
+        self.driver.get("http://localhost:8080")
+        #self.driver.get('https://mark2down.herokuapp.com/')
 
     """ don't work with phantomJS
     def test_mermaid_render_1(self):
@@ -94,34 +94,42 @@ class PythonOrgSearch(unittest.TestCase):
         self.assertTrue(btn.is_displayed())
         btn.click()
         self.assertEqual("###### ", driver.find_element_by_id("editor").get_attribute('value'))
+        
+    def test_Hr_btn(self):
+        driver = self.driver
+        btn = driver.find_element_by_id('btnHr')
+        self.assertTrue(btn.is_displayed())
+        btn.click()
+        self.assertEqual("\n___ \n", driver.find_element_by_id("editor").get_attribute('value'))
 
     def test_bold_btn(self):
         driver = self.driver
         btn = driver.find_element_by_id('btnBold')
         self.assertTrue(btn.is_displayed())
         btn.click()
-        self.assertEqual("++  ++", driver.find_element_by_id("editor").get_attribute('value'))
+        self.assertEqual("**  **", driver.find_element_by_id("editor").get_attribute('value'))
 
     def test_italic_btn(self):
         driver = self.driver
         btn = driver.find_element_by_id('btnItalic')
         self.assertTrue(btn.is_displayed())
         btn.click()
-        self.assertEqual("~~  ~~", driver.find_element_by_id("editor").get_attribute('value'))
-
-    def test_underline_btn(self):
+        self.assertEqual("_  _", driver.find_element_by_id("editor").get_attribute('value'))
+        
+    def test_bold_italic_btn(self):
         driver = self.driver
-        btn = driver.find_element_by_id('btnUnderline')
+        btn = driver.find_element_by_id('btnBoldItalic')
         self.assertTrue(btn.is_displayed())
         btn.click()
-        self.assertEqual("__  __", driver.find_element_by_id("editor").get_attribute('value'))
+        self.assertEqual("**_  _**", driver.find_element_by_id("editor").get_attribute('value'))
+
 
     def test_strikeThrough_btn(self):
         driver = self.driver
         btn = driver.find_element_by_id('btnStrikeThrough')
         self.assertTrue(btn.is_displayed())
         btn.click()
-        self.assertEqual("--  --", driver.find_element_by_id("editor").get_attribute('value'))
+        self.assertEqual("~~~~", driver.find_element_by_id("editor").get_attribute('value'))
 
     def test_typeWriting_btn(self):
         driver = self.driver
@@ -130,34 +138,7 @@ class PythonOrgSearch(unittest.TestCase):
         btn.click()
         self.assertEqual("```  ```", driver.find_element_by_id("editor").get_attribute('value'))
 
-    def test_alignLeft_btn(self):
-        driver = self.driver
-        btn = driver.find_element_by_id('btnAlignLeft')
-        self.assertTrue(btn.is_displayed())
-        btn.click()
-        self.assertEqual("{{\n", driver.find_element_by_id("editor").get_attribute('value'))
-
-    def test_alignCenter_btn(self):
-        driver = self.driver
-        btn = driver.find_element_by_id('btnAlignCenter')
-        self.assertTrue(btn.is_displayed())
-        btn.click()
-        self.assertEqual("}{\n", driver.find_element_by_id("editor").get_attribute('value'))
-
-    def test_alignBlock_btn(self):
-        driver = self.driver
-        btn = driver.find_element_by_id('btnAlignBlock')
-        self.assertTrue(btn.is_displayed())
-        btn.click()
-        self.assertEqual("{}\n", driver.find_element_by_id("editor").get_attribute('value'))
-
-    def test_alignRight_btn(self):
-        driver = self.driver
-        btn = driver.find_element_by_id('btnAlignRight')
-        self.assertTrue(btn.is_displayed())
-        btn.click()
-        self.assertEqual("}}\n", driver.find_element_by_id("editor").get_attribute('value'))
-
+   
     def test_cislovanySeznam_btn(self):
         driver = self.driver
         btn = driver.find_element_by_id('btnNumerate')
@@ -269,3 +250,6 @@ class PythonOrgSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.close()
+        
+if __name__ == "__main__":
+	unittest.main()		
